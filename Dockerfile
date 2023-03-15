@@ -4,7 +4,6 @@ ARG env
 WORKDIR /app
 
 COPY ./api/ .
-COPY ./src/ .
 COPY package.json .
 
 RUN npm i
@@ -12,19 +11,12 @@ RUN npm i
 # Copy all local files into the image.
 COPY . .
 
-RUN if [ "$env" = "production" ] ; then \
-    npm run buildprod; \
-else \
-    npm run build; \
-fi
-
 FROM node:16
 
 WORKDIR /app
 COPY --from=0 /app .
 COPY . .
 
-EXPOSE 3000
 EXPOSE 8000
 
-CMD echo node ./build;echo npm start
+CMD ["npm", "start"]
