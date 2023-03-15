@@ -26,4 +26,4 @@ COPY . .
 
 EXPOSE 80
 
-CMD ["node", "./build"]
+CMD ["node", "preview"]
