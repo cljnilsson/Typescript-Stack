@@ -5,6 +5,7 @@ WORKDIR /app
 
 COPY ./api/ .
 COPY ./src/ .
+COPY package.json .
 
 RUN npm i
 
