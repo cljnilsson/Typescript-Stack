@@ -24,6 +24,6 @@ WORKDIR /app
 COPY --from=0 /app .
 COPY . .
 
-EXPOSE 80
+EXPOSE 3000
 
 CMD ["node", "./build"]
