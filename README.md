@@ -7,6 +7,7 @@
 * GraphQL
 
 ### Todo
+* Add docker container
 * Add vitest support
 * Expand / replace / add a more detailed sandbox/playground for the query creation
 * Adminbro CMS integration
