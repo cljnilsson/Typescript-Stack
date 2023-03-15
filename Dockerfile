@@ -25,5 +25,6 @@ COPY --from=0 /app .
 COPY . .
 
 EXPOSE 3000
+EXPOSE 8000
 
-CMD ["node", "./build"]
+CMD echo node ./build;echo npm start
