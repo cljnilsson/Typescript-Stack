@@ -22,11 +22,9 @@
 	},
 	"type": "module",
 	"dependencies": {
-		"@admin-bro/typeorm": "^1.4.0",
 		"@adminjs/express": "^5.1.0",
 		"@adminjs/typeorm": "^4.0.0",
 		"@types/cors": "^2.8.13",
-		"admin-bro": "^4.0.1",
 		"adminjs": "^6.8.7",
 		"class-validator": "^0.14.0",
 		"cors": "^2.8.5",
