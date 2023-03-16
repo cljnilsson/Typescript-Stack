@@ -4,7 +4,8 @@ import express from "express"
 import { graphqlHTTP } from "express-graphql"
 import { UsersResolver } from "./users.resolvers"
 import cors from "cors";
-import "./db/db";
+import {adminJs} from "./db/db";
+import AdminJSExpress from '@adminjs/express'
 
 async function main() {
     const schema = await buildSchema({
@@ -18,6 +19,8 @@ async function main() {
     const app = express();
 
     app.use( cors() );
+    const router = AdminJSExpress.buildRouter(adminJs)
+    app.use(adminJs.options.rootPath, router)
     app.use(
         "/graphql",
         graphqlHTTP({
