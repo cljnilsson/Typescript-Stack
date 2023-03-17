@@ -47,7 +47,10 @@ async function main() {
             console.log(u);
             if(u) {
                 if(bcrypt.compareSync(req.body.password, u.password)) {
-                    res.json({token: jwt.sign({ username: u.name, role: u.role }, "shhhhh")});
+                    const token = jwt.sign({ username: u.name, role: u.role }, "shhhhh");
+                    u.token = token;
+                    await u.save();
+                    res.json({token: token});
                 } else {
                     res.status(400).json({error: "Wrong credentials!"});
                 }
