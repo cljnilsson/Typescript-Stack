@@ -1,13 +1,22 @@
-import { Query, Resolver, Mutation, Arg, UseMiddleware } from "type-graphql"
+import { Query, Resolver, FieldResolver, Mutation, Arg, Root, UseMiddleware, Authorized} from "type-graphql"
 import type {MiddlewareFn} from "type-graphql";
 //import { UserInput, User } from "./users.schema"
 import User from "./db/models/User";
+import Role from "./db/models/Role";
 import UserInput from "./inputs/userInput";
 import db from "./db/db";
+import bcrypt from 'bcrypt';
+const saltRounds = 10;
 
 @Resolver(() => User)
 export class UsersResolver {
+    /*@FieldResolver()
+    getRoles(@Root() user: User) {
+        return user.roles;
+    }*/
+
     @Query(() => [User])
+    @Authorized()
     async getUsers(): Promise<User[]> {
         return User.find();
     }
@@ -20,9 +29,14 @@ export class UsersResolver {
     @Mutation(() => User)
     async createUser(@Arg("input") input: UserInput): Promise<User> {
         const u = new User();
-        u.email = input.email;
+
+        u.password = bcrypt.hashSync(input.password, saltRounds);;
         u.name = input.name;
+
+        const found = await Role.findOneByOrFail({name: input.role});
+        u.role = found;
         await u.save();
+        console.log(u);
         return u;
     }
     /*
